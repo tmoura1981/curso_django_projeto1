@@ -1,10 +1,5 @@
-from distutils.command.upload import upload
-from turtle import title, update
-from unicodedata import category, name
-
 from django.contrib.auth.models import User
 from django.db import models
-from typing_extensions import Self
 
 
 class Category(models.Model):
