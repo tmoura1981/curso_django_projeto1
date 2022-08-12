@@ -1,3 +1,5 @@
+from turtle import title
+
 from django.urls import resolve, reverse
 from recipes import views
 
@@ -56,5 +58,24 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertEqual(len(response_context_recipes), 1)
         self.assertIn('Recipe Title', content)
         self.assertIn('Thiago', content)
+
+    def test_recipe_category_template_loads_recipes(self):
+        needed_title = 'Category test'
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(reverse('recipes:category', args=(1,)))
+        content = response.content.decode('utf-8')
+
+        self.assertIn(needed_title, content)
+
+    def test_recipe_detail_template_loads_correct_recipes(self):
+        needed_title = 'Detail page'
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': 1}))
+        content = response.content.decode('utf-8')
+
+        self.assertIn(needed_title, content)
 
         pass
