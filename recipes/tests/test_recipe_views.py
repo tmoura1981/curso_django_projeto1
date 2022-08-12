@@ -1,5 +1,3 @@
-from turtle import title
-
 from django.urls import resolve, reverse
 from recipes import views
 
@@ -78,4 +76,28 @@ class RecipeViewsTest(RecipeTestBase):
 
         self.assertIn(needed_title, content)
 
-        pass
+    def test_if_recipe_is_published(self):
+        self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertIn('No recipes found here',
+                      response.content.decode('utf-8'))
+
+    def test_if_category_is_published(self):
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.category.id}))
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_if_detail_is_published(self):
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.id}))
+
+        self.assertEqual(response.status_code, 404)
+
+    pass
