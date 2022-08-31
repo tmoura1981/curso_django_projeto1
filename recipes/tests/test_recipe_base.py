@@ -12,18 +12,18 @@ class RecipeTestBase(TestCase):
 
     def make_author(
         self,
-        first_name='AAA',
-        last_name='BBB',
-        username='AAA_BBB',
-        password='123',
-        email='email@email.com',
+        first_name='user',
+        last_name='name',
+        username='username',
+        password='123456',
+        email='username@email.com',
     ):
         return User.objects.create_user(
-            first_name='first_name',
-            last_name='last_name',
-            username='username',
-            password='password',
-            email='email')
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            password=password,
+            email=email)
 
     def make_recipe(
             self,
@@ -35,7 +35,7 @@ class RecipeTestBase(TestCase):
             preparation_time=10,
             preparation_time_unit='min',
             servings=5,
-            servings_unit='porcões',
+            servings_unit='Porcões',
             preparation_steps='Recipe preparation_steps',
             preparation_steps_is_html=False,
             is_published=True,
